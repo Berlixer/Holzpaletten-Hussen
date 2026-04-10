@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produkte – PalletGuard Schutzhüllen</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero {
+      padding: 140px 6vw 80px;
+      background: var(--bark);
+      text-align: center;
+    }
+
+    .page-hero .section-title { color: var(--cream); margin-bottom: 1rem; }
+    .page-hero p { color: var(--stone); font-size: 1.1rem; font-weight: 300; max-width: 540px; margin: 0 auto; }
+
+    /* ── PRODUCT CARDS ─────────────────────────────────── */
+    .products-section {
+      padding: 100px 6vw;
+      background: var(--cream);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .product-card {
+      background: white;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(61,43,31,0.12); }
+
+    .product-image {
+      position: relative;
+      height: 320px;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .product-card:hover .product-image img { transform: scale(1.05); }
+
+    .product-color-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,240,232,0.95);
+      padding: 6px 12px 6px 8px;
+      border-radius: 2px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--bark);
+    }
+
+    .color-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+
+    .product-body {
+      padding: 36px 32px 40px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--bark);
+      margin-bottom: 0.75rem;
+    }
+
+    .product-body .tagline {
+      font-size: 0.9rem;
+      color: var(--earth);
+      font-weight: 500;
+      font-style: italic;
+      margin-bottom: 1.2rem;
+    }
+
+    .product-body p {
+      color: #6a5a4a;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      flex: 1;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--sand);
+      padding-top: 1.5rem;
+    }
+
+    .product-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--bark);
+    }
+
+    .product-price span {
+      font-size: 1rem;
+      font-weight: 400;
+      font-family: 'Barlow', sans-serif;
+      color: var(--stone);
+      margin-left: 4px;
+    }
+
+    /* ── DETAILS / SPECS ───────────────────────────────── */
+    .specs-section {
+      padding: 100px 6vw;
+      background: var(--sand);
+    }
+
+    .specs-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .specs-content p {
+      color: #5a4a3a;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .specs-table tr {
+      border-bottom: 1px solid rgba(122,92,58,0.15);
+    }
+
+    .specs-table td {
+      padding: 14px 0;
+      font-size: 0.95rem;
+    }
+
+    .specs-table td:first-child {
+      font-weight: 600;
+      color: var(--bark);
+      width: 45%;
+    }
+
+    .specs-table td:last-child {
+      color: #5a4a3a;
+      font-weight: 300;
+    }
+
+    /* ── ORDER FORM ────────────────────────────────────── */
+    .order-section {
+      padding: 100px 6vw;
+      background: white;
+    }
+
+    .order-header {
+      text-align: center;
+      max-width: 540px;
+      margin: 0 auto 4rem;
+    }
+
+    .order-header p {
+      color: #6a5a4a;
+      font-size: 1.05rem;
+      font-weight: 300;
+    }
+
+    .order-form {
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--cream);
+      padding: 48px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bark);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 12px 16px;
+      border: 1px solid var(--sand);
+      background: white;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.95rem;
+      color: var(--bark);
+      outline: none;
+      transition: border-color 0.2s;
+      border-radius: 2px;
+      appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--earth);
+    }
+
+    .form-group textarea { height: 120px; resize: vertical; }
+
+    .form-note {
+      font-size: 0.85rem;
+      color: var(--stone);
+      margin-bottom: 2rem;
+      text-align: center;
+      font-weight: 300;
+    }
+
+    .form-submit {
+      text-align: center;
+    }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      background: #eef5ee;
+      border: 1px solid var(--moosgruen);
+      color: var(--forest);
+      font-weight: 500;
+      border-radius: 2px;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .specs-wrapper { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .order-form { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">Pallet<span>Guard</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Start</a></li>
+    <li><a href="produkte.html" class="active">Produkte</a></li>
+    <li><a href="ueber-uns.html">Über uns</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+    <li><a href="#bestellen" class="nav-cta">Jetzt bestellen</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <span class="section-label">Unsere Kollektion</span>
+  <h1 class="section-title">Drei Farben.<br>Ein Versprechen.</h1>
+  <p>Jede Hülle schützt vollständig, sitzt perfekt und sieht dabei noch gut aus. Wähle deinen Farbton.</p>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section">
+  <div class="products-grid">
+
+    <!-- Anthrazit -->
+    <div class="product-card">
+      <div class="product-image">
+        <img src="img-anthrazit.png" alt="PalletGuard Anthrazit auf Europaletten-Möbel" />
+        <div class="product-color-badge">
+          <div class="color-dot" style="background: var(--anthrazit);"></div>
+          Anthrazit
+        </div>
+      </div>
+      <div class="product-body">
+        <h2>PalletGuard Anthrazit</h2>
+        <p class="tagline">Modern. Zeitlos. Urban.</p>
+        <p>Das dunkle Anthrazit passt perfekt zu modernen Außenbereichen, Holzterrassen und industriell gestalteten Gärten. Dezent, stark, elegant.</p>
+        <div class="product-footer">
+          <div class="product-price">99 € <span>/ Stück</span></div>
+          <a href="#bestellen" class="btn-primary" onclick="preselectColor('anthrazit')">Bestellen</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sandstein -->
+    <div class="product-card">
+      <div class="product-image">
+        <img src="img-sandstein.png" alt="PalletGuard Sandstein auf Europaletten-Möbel" />
+        <div class="product-color-badge">
+          <div class="color-dot" style="background: var(--sandstone);"></div>
+          Sandstein
+        </div>
+      </div>
+      <div class="product-body">
+        <h2>PalletGuard Sandstein</h2>
+        <p class="tagline">Warm. Natürlich. Einladend.</p>
+        <p>Der warme Sandstein-Ton harmoniert wunderbar mit Naturstein, Holzdielen und mediterranen Gartengestaltungen. Ein echter Hingucker.</p>
+        <div class="product-footer">
+          <div class="product-price">99 € <span>/ Stück</span></div>
+          <a href="#bestellen" class="btn-primary" onclick="preselectColor('sandstein')">Bestellen</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Moosgrün -->
+    <div class="product-card">
+      <div class="product-image">
+        <img src="img-moosgruen.png" alt="PalletGuard Moosgrün auf Europaletten-Möbel" />
+        <div class="product-color-badge">
+          <div class="color-dot" style="background: var(--moosgruen);"></div>
+          Moosgrün
+        </div>
+      </div>
+      <div class="product-body">
+        <h2>PalletGuard Moosgrün</h2>
+        <p class="tagline">Natur. Ruhe. Geborgenheit.</p>
+        <p>Moosgrün fügt sich nahtlos in naturnahe und begrünte Außenbereiche ein. Perfekt für Gärten, die Natur atmen und eine entspannte Atmosphäre ausstrahlen.</p>
+        <div class="product-footer">
+          <div class="product-price">99 € <span>/ Stück</span></div>
+          <a href="#bestellen" class="btn-primary" onclick="preselectColor('moosgruen')">Bestellen</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SPECS -->
+<section class="specs-section">
+  <div class="specs-wrapper">
+    <div class="specs-content">
+      <span class="section-label">Technische Details</span>
+      <h2 class="section-title">Qualität,<br>die man spürt.</h2>
+      <p>Wir haben PalletGuard nicht aus einer LKW-Plane gestanzt. Das Material ist gezielt für den Outdoor-Einsatz entwickelt: leichter als eine Plane, dennoch absolut wasserfest und langlebig.</p>
+      <p>Der umlaufende YKK-Reißverschluss ist wasserdicht verarbeitet und schließt auch unter Druck dicht. Die Hülle sitzt exakt – kein Flattern, kein Verrutschen.</p>
+    </div>
+    <div>
+      <table class="specs-table">
+        <tr><td>Maß (L × B × H)</td><td>120 × 80 × 80 cm (Standard Europalette × 2 gestapelt)</td></tr>
+        <tr><td>Material</td><td>600D Oxford-Gewebe, PU-beschichtet</td></tr>
+        <tr><td>Wassersäule</td><td>≥ 3.000 mm (wasserdicht)</td></tr>
+        <tr><td>UV-Schutz</td><td>UPF 50+ (jahrelange Beständigkeit)</td></tr>
+        <tr><td>Reißverschluss</td><td>YKK wasserdicht, umlaufend</td></tr>
+        <tr><td>Farben</td><td>Anthrazit, Sandstein, Moosgrün</td></tr>
+        <tr><td>Gewicht</td><td>ca. 1,2 kg</td></tr>
+        <tr><td>Lieferumfang</td><td>1× Hülle inkl. Tragebeutel</td></tr>
+        <tr><td>Preis</td><td>99 € pro Stück (inkl. MwSt.)</td></tr>
+        <tr><td>Versand</td><td>Deutschland-weit, 3–5 Werktage</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER FORM -->
+<section class="order-section" id="bestellen">
+  <div class="order-header">
+    <span class="section-label">Jetzt bestellen</span>
+    <h2 class="section-title">Bereit zum Schutz?</h2>
+    <p>Fülle das Formular aus – wir melden uns innerhalb von 24 Stunden mit Zahlungs- und Versanddetails bei dir.</p>
+  </div>
+  <div class="order-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Vorname *</label>
+        <input type="text" id="vorname" placeholder="Max" />
+      </div>
+      <div class="form-group">
+        <label>Nachname *</label>
+        <input type="text" id="nachname" placeholder="Mustermann" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group full">
+        <label>E-Mail *</label>
+        <input type="email" id="email" placeholder="max@beispiel.de" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Farbe *</label>
+        <select id="farbe">
+          <option value="">Bitte wählen …</option>
+          <option value="anthrazit">Anthrazit</option>
+          <option value="sandstein">Sandstein</option>
+          <option value="moosgruen">Moosgrün</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Anzahl</label>
+        <select id="anzahl">
+          <option value="1">1 Stück – 99 €</option>
+          <option value="2">2 Stück – 198 €</option>
+          <option value="3">3 Stück – 297 €</option>
+          <option value="4">4+ Stück – Kontakt aufnehmen</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group full">
+        <label>Anmerkungen (optional)</label>
+        <textarea id="anmerkungen" placeholder="Lieferadresse, besondere Wünsche …"></textarea>
+      </div>
+    </div>
+    <p class="form-note">* Pflichtfelder. Deine Daten werden nur zur Auftragsabwicklung genutzt.</p>
+    <div class="form-submit">
+      <button class="btn-primary" onclick="submitOrder()" style="font-size:1rem; padding: 16px 48px;">
+        Jetzt verbindlich bestellen
+      </button>
+    </div>
+    <div class="success-msg" id="successMsg">
+      🎉 Vielen Dank für deine Bestellung! Wir melden uns innerhalb von 24 Stunden per E-Mail.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">Pallet<span style="color:var(--earth)">Guard</span></a>
+      <p>Hochwertige Schutzhüllen für Europaletten-Möbel. Witterungsfest, elegant, einfach.</p>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <ul class="footer-links">
+        <li><a href="index.html">Startseite</a></li>
+        <li><a href="produkte.html">Produkte</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Produkt</h4>
+      <ul class="footer-links">
+        <li><a href="#">Anthrazit</a></li>
+        <li><a href="#">Sandstein</a></li>
+        <li><a href="#">Moosgrün</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Rechtliches</h4>
+      <ul class="footer-links">
+        <li><a href="#">Impressum</a></li>
+        <li><a href="#">Datenschutz</a></li>
+        <li><a href="#">AGB</a></li>
+        <li><a href="#">Widerruf</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 PalletGuard. Alle Rechte vorbehalten.</span>
+    <span>Fotos: Unsplash (Lizenzfrei)</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '72px'; links.style.left = '0'; links.style.right = '0';
+    links.style.background = 'var(--cream)';
+    links.style.padding = '1.5rem 6vw';
+    links.style.borderBottom = '1px solid var(--sand)';
+  }
+
+  function preselectColor(c) {
+    document.getElementById('farbe').value = c;
+  }
+
+  function submitOrder() {
+    const v = document.getElementById('vorname').value.trim();
+    const n = document.getElementById('nachname').value.trim();
+    const e = document.getElementById('email').value.trim();
+    const f = document.getElementById('farbe').value;
+    if (!v || !n || !e || !f) {
+      alert('Bitte alle Pflichtfelder ausfüllen.');
+      return;
+    }
+    document.getElementById('successMsg').style.display = 'block';
+    document.querySelector('.form-submit button').disabled = true;
+    document.querySelector('.form-submit button').textContent = 'Bestellung eingegangen ✓';
+  }
+</script>
+</body>
+</html>
